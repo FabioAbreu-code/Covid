@@ -71,4 +71,20 @@ import org.junit.Before
         db.close()
     }
 
+    @Test
+
+    fun consegueApagarVacinas() {
+
+        val db = getBdTestesOpenHelper().writableDatabase
+        val tabelaUtentes = getTableUtentes(db)
+        val utentes = Utentes(Data_do_Teste = "06/06/2021", Resultado = "Negativo", Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = "3", Id_Unidade_Hospitalar = "Hospital Dr. Nélio Mendonça")
+        utentes.id = insereUtente(tabelaUtentes, utentes)
+
+        val registosApagados = tabelaUtentes.delete("${BaseColumns._ID}=?",arrayOf(utentes.id.toString()))
+        assertEquals(1, registosApagados)
+
+        db.close()
+    }
+
+
 }
