@@ -42,5 +42,10 @@ class TabelaMedicos(db: SQLiteDatabase) {
         const val CAMPO_NUM_TELEMOVEL = "Telemovel"
         const val CAMPO_EMAIL = "Email"
 
+        val TODOS_CAMPOS = arrayOf(BaseColumns._ID,
+            TabelaMedicos.CAMPO_NOME,
+            TabelaMedicos.CAMPO_NUM_TELEMOVEL,
+            TabelaMedicos.CAMPO_EMAIL,
+        )
     }
 }
