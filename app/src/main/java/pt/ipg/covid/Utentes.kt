@@ -5,8 +5,20 @@ import android.database.Cursor
 import android.provider.BaseColumns
 import java.util.*
 
-data class Utentes (var id: Long = -1, var Data_do_Teste: String, var Resultado: String, var Numero_de_Utente: String, var Nome: String, var Sexo: String, var Data_de_Nascimento: String, var Telemovel: String,
-                    var Email: String, var Morada: String, var Id_Medico: String, var Id_Unidade_Hospitalar: String) {
+data class Utentes(
+    var id: Long = -1,
+    var Data_do_Teste: String,
+    var Resultado: String,
+    var Numero_de_Utente: String,
+    var Nome: String,
+    var Sexo: String,
+    var Data_de_Nascimento: String,
+    var Telemovel: String,
+    var Email: String,
+    var Morada: String,
+    var Id_Medico: String,
+    var Id_Unidade_Hospitalar: String
+) {
 
     fun toContentValues(): ContentValues {
         val valores = ContentValues().apply {
@@ -54,7 +66,20 @@ data class Utentes (var id: Long = -1, var Data_do_Teste: String, var Resultado:
             val Id_Medico = cursor.getString(colId_Medico)
             val Id_Unidade_Hospitalar = cursor.getString(colId_Unidade_Hospitalar)
 
-            return Utentes(id, Data_do_Teste, Resultado, Numero_de_Utente, Nome, Sexo, Data_de_Nascimento, Telemovel, Email, Morada, Id_Medico, Id_Unidade_Hospitalar)
+            return Utentes(
+                id,
+                Data_do_Teste,
+                Resultado,
+                Numero_de_Utente,
+                Nome,
+                Sexo,
+                Data_de_Nascimento,
+                Telemovel,
+                Email,
+                Morada,
+                Id_Medico,
+                Id_Unidade_Hospitalar
+            )
         }
     }
 }

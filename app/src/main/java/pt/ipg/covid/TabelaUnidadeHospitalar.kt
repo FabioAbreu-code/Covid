@@ -9,19 +9,19 @@ class TabelaUnidadeHospitalar(db: SQLiteDatabase) {
     private val db: SQLiteDatabase = db
 
     fun cria() {
-        db.execSQL("CREATE TABLE $NOME_TABELA (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $CAMPO_NOME TEXT NOT NULL, $CAMPO_MORADA TEXT NOT NULL)")
+        db.execSQL("CREATE TABLE $NOME_TABELA3 (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $CAMPO_NOME TEXT NOT NULL, $CAMPO_MORADA TEXT NOT NULL)")
     }
 
     fun insert(values: ContentValues): Long {
-        return db.insert(NOME_TABELA, null, values)
+        return db.insert(NOME_TABELA3, null, values)
     }
 
     fun update(values: ContentValues, whereClause: String, whereArgs: Array<String>): Int {
-        return db.update(NOME_TABELA, values, whereClause, whereArgs)
+        return db.update(NOME_TABELA3, values, whereClause, whereArgs)
     }
 
     fun delete(whereClause: String, whereArgs: Array<String>): Int {
-        return db.delete(NOME_TABELA, whereClause, whereArgs)
+        return db.delete(NOME_TABELA3, whereClause, whereArgs)
     }
 
     fun query(
@@ -32,11 +32,11 @@ class TabelaUnidadeHospitalar(db: SQLiteDatabase) {
         having: String?,
         orderBy: String?
     ): Cursor? {
-        return db.query(NOME_TABELA, columns, selection, selectionArgs, groupBy, having, orderBy)
+        return db.query(NOME_TABELA3, columns, selection, selectionArgs, groupBy, having, orderBy)
     }
 
     companion object {
-        const val NOME_TABELA = "Medicos"
+        const val NOME_TABELA3 = "Medicos"
         const val CAMPO_NOME = "Nome"
         const val CAMPO_MORADA = "Morada"
 
