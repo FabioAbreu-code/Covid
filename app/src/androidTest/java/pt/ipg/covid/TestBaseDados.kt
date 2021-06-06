@@ -156,4 +156,19 @@ import org.junit.Before
         db.close()
     }
 
+    @Test
+
+    fun consegueApagarMedicos() {
+
+        val db = getBdTestesOpenHelper().writableDatabase
+        val tabelaMedicos = getTabelaMedicos(db)
+        val medicos = Medicos(Nome = "Maria", Telemovel = "936873505", Email= "maria@gmail.com")
+        medicos.id = insereMedico(tabelaMedicos, medicos)
+
+        val registosApagados = tabelaMedicos.delete("${BaseColumns._ID}=?",arrayOf(medicos.id.toString()))
+        assertEquals(1, registosApagados)
+
+        db.close()
+    }
+
 }
