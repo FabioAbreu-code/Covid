@@ -10,7 +10,7 @@ class TabelaMedicos(db: SQLiteDatabase) {
     private val db: SQLiteDatabase = db
 
     fun cria() {
-        db.execSQL("CREATE TABLE $NOME_TABELA2 (${BaseColumns._ID}  INTEGER PRIMARY KEY AUTOINCREMENT, $CAMPO_NOME TEXT NOT NULL, $CAMPO_NUM_TELEMOVEL TEXT NOT NULL, $CAMPO_EMAIL TEXT NOT NULL)")
+        db.execSQL("CREATE TABLE $NOME_TABELA2 (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $CAMPO_NOME TEXT NOT NULL, $CAMPO_NUM_TELEMOVEL TEXT NOT NULL, $CAMPO_EMAIL TEXT NOT NULL)")
     }
 
     fun insert(values: ContentValues): Long {

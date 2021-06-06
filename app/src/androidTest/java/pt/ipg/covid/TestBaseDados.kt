@@ -29,10 +29,42 @@ import org.junit.Before
         return id
     }
 
+    private fun GetUtenteBd(tabelaMedicos: TabelaUtentes, id: Long): Utentes {
+        val cursor = tabelaMedicos.query(
+            TabelaUtentes.TODOS_CAMPOS,
+            "${BaseColumns._ID}=?",
+            arrayOf(id.toString()),
+            null,
+            null,
+            null
+        )
+
+        assertNotNull(cursor)
+        assert(cursor!!.moveToNext())
+
+        return Utentes.fromCursor(cursor)
+
+    }
 
     @Before
     fun apagaBaseDados(){
         getAppContext().deleteDatabase(BdTestesOpenHelper.NOME_BASE_DADOS)
+    }
+
+    @Test
+
+    fun consegueLerUtentes() {
+
+        val db = getBdTestesOpenHelper().writableDatabase
+        val tabelaUtentes = getTableUtentes(db)
+
+        val utentes = Utentes(Data_do_Teste = "06/06/2021", Resultado = "Negativo", Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = "3", Id_Unidade_Hospitalar = "Hospital Dr. Nélio Mendonça")
+        utentes.id = insereUtente(tabelaUtentes, utentes)
+
+        val utenteBd = GetUtenteBd(tabelaUtentes, utentes.id)
+        assertEquals(utentes, utenteBd)
+
+        db.close()
     }
 
     @Test
