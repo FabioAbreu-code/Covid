@@ -30,6 +30,13 @@ import org.junit.Before
         return id
     }
 
+    private fun insereMedico(tabela: TabelaMedicos, medicos: Medicos): Long {
+        val id = tabela.insert(medicos.toContentValues())
+        assertNotEquals(-1, id)
+
+        return id
+    }
+
     private fun GetUtenteBd(tabelaMedicos: TabelaUtentes, id: Long): Utentes {
         val cursor = tabelaMedicos.query(
             TabelaUtentes.TODOS_CAMPOS,
@@ -88,7 +95,7 @@ import org.junit.Before
     fun consegueInserirMedicos(){
         val db = getBdTestesOpenHelper().writableDatabase
 
-        insereUtente(getTableUtentes(db), Utentes(Data_do_Teste = "06/06/2021", Resultado = "Negativo", Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = "3", Id_Unidade_Hospitalar = "Hospital Dr. Nélio Mendonça"))
+        insereMedico(getTabelaMedicos(db), Medicos(Nome = "Maria", Telemovel = "936873505", Email= "maria@gmail.com"))
 
         db.close()
     }
@@ -114,7 +121,29 @@ import org.junit.Before
 
     @Test
 
-    fun consegueApagarVacinas() {
+    fun consegueAlterarMedicos() {
+
+        val db = getBdTestesOpenHelper().writableDatabase
+
+        val tabelaMedicos = getTabelaMedicos(db)
+        val medicos = Medicos(Nome = "Maria", Telemovel = "936873505", Email= "maria@gmail.com")
+        medicos.id = insereMedico(tabelaMedicos, medicos)
+
+
+        val registosAlterados = tabelaMedicos.update(
+            medicos.toContentValues(),
+            "${BaseColumns._ID}=?",
+            arrayOf(medicos.id.toString())
+        )
+
+        assertEquals(1, registosAlterados)
+
+        db.close()
+    }
+
+
+    @Test
+    fun consegueApagarUtentes() {
 
         val db = getBdTestesOpenHelper().writableDatabase
         val tabelaUtentes = getTableUtentes(db)
@@ -126,6 +155,5 @@ import org.junit.Before
 
         db.close()
     }
-
 
 }
