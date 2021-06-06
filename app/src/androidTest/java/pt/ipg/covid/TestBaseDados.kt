@@ -22,6 +22,7 @@ import org.junit.Before
     private fun getBdTestesOpenHelper() = BdTestesOpenHelper(getAppContext())
     private fun getTableUtentes(db: SQLiteDatabase) = TabelaUtentes(db)
     private fun getTabelaMedicos(db: SQLiteDatabase) = TabelaMedicos(db)
+    private fun getTabelaUnidadesHospitalares(db: SQLiteDatabase) = TabelaUnidadeHospitalar(db)
 
     private fun insereUtente(tabela: TabelaUtentes, utentes: Utentes): Long {
         val id = tabela.insert(utentes.toContentValues())
@@ -36,6 +37,14 @@ import org.junit.Before
 
         return id
     }
+
+    private fun insertUnidadesHospitalares(tabela: TabelaUnidadeHospitalar, unidadeHospitalar: UnidadesHospitalares): Long {
+        val id = tabela.insert(unidadeHospitalar.toContentValues())
+        assertNotEquals(-1, id)
+
+        return id
+    }
+
 
     private fun GetUtenteBd(tabelaMedicos: TabelaUtentes, id: Long): Utentes {
         val cursor = tabelaMedicos.query(
@@ -130,6 +139,18 @@ import org.junit.Before
 
         db.close()
     }
+
+    @Test
+    fun consegueInserirUnidadesHospitalares(){
+
+        val db = getBdTestesOpenHelper().writableDatabase
+
+        insertUnidadesHospitalares(getTabelaUnidadesHospitalares(db), UnidadesHospitalares(Nome = "Hospital Dr. Nélio Mendonça", Morada = "Av. Luís de Camões 6180"))
+
+        db.close()
+
+    }
+
     @Test
     fun consegueAlterarVacinas(){
 
