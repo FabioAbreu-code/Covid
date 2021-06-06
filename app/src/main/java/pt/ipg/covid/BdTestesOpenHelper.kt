@@ -8,7 +8,8 @@ class BdTestesOpenHelper(context: Context?): SQLiteOpenHelper(context, NOME_BASE
 
     override fun onCreate(db: SQLiteDatabase?) {
         if (db != null) {
-            TabelaPessoas(db).cria()
+            TabelaUtentes(db).cria()
+            TabelaMedicos(db).cria()
         }
     }
 
