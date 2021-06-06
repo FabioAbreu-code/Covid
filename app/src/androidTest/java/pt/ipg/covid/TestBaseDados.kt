@@ -21,6 +21,7 @@ import org.junit.Before
     private fun getAppContext() = InstrumentationRegistry.getInstrumentation().targetContext
     private fun getBdTestesOpenHelper() = BdTestesOpenHelper(getAppContext())
     private fun getTableUtentes(db: SQLiteDatabase) = TabelaUtentes(db)
+    private fun getTabelaMedicos(db: SQLiteDatabase) = TabelaMedicos(db)
 
     private fun insereUtente(tabela: TabelaUtentes, utentes: Utentes): Long {
         val id = tabela.insert(utentes.toContentValues())
@@ -83,6 +84,14 @@ import org.junit.Before
         db.close()
     }
 
+    @Test
+    fun consegueInserirMedicos(){
+        val db = getBdTestesOpenHelper().writableDatabase
+
+        insereUtente(getTableUtentes(db), Utentes(Data_do_Teste = "06/06/2021", Resultado = "Negativo", Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = "3", Id_Unidade_Hospitalar = "Hospital Dr. Nélio Mendonça"))
+
+        db.close()
+    }
     @Test
     fun consegueAlterarVacinas(){
 
