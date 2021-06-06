@@ -173,6 +173,27 @@ import org.junit.Before
 
     @Test
 
+    fun consegueAlterarUnidadesHospitalares() {
+
+        val db = getBdTestesOpenHelper().writableDatabase
+
+        val tabelaUnidadeHospitalar = getTabelaUnidadesHospitalares(db)
+        val unidadeHospitalar = UnidadesHospitalares(Nome = "Hospital Dr. Nélio Mendonça", Morada = "Av. Luís de Camões 6180")
+        unidadeHospitalar.id = insertUnidadesHospitalares(tabelaUnidadeHospitalar , unidadeHospitalar)
+
+        val registosAlterados = tabelaUnidadeHospitalar.update(
+            unidadeHospitalar.toContentValues(),
+            "${BaseColumns._ID}=?",
+            arrayOf(unidadeHospitalar.id.toString())
+        )
+
+        assertEquals(1, registosAlterados)
+
+        db.close()
+    }
+
+    @Test
+
     fun consegueAlterarMedicos() {
 
         val db = getBdTestesOpenHelper().writableDatabase
