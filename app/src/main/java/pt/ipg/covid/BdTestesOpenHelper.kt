@@ -10,6 +10,7 @@ class BdTestesOpenHelper(context: Context?): SQLiteOpenHelper(context, NOME_BASE
         if (db != null) {
             TabelaUtentes(db).cria()
             TabelaMedicos(db).cria()
+            TabelaUnidadeHospitalar(db).cria()
         }
     }
 
