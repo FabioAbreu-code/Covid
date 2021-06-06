@@ -244,4 +244,18 @@ import org.junit.Before
         db.close()
     }
 
+    @Test
+
+    fun consegueApagarUnidadesHospitalares() {
+
+        val db = getBdTestesOpenHelper().writableDatabase
+        val tabelaUnidadeHospitalar = getTabelaUnidadesHospitalares(db)
+        val unidadeHospitalar = UnidadesHospitalares(Nome = "Hospital Dr. Nélio Mendonça", Morada = "Av. Luís de Camões 6180")
+        unidadeHospitalar.id = insertUnidadesHospitalares(tabelaUnidadeHospitalar, unidadeHospitalar)
+
+        val registosApagados = tabelaUnidadeHospitalar.delete("${BaseColumns._ID}=?",arrayOf(unidadeHospitalar.id.toString()))
+        assertEquals(1, registosApagados)
+
+        db.close()
+    }
 }
