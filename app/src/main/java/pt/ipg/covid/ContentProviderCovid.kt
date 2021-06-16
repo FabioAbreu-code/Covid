@@ -287,7 +287,35 @@ class ContentProviderCovid : ContentProvider() {
         selection: String?,
         selectionArgs: Array<out String>?
     ): Int {
-        TODO("Ainda não foi implementado")
+        val bd = bdTestesOpenHelper!!.writableDatabase
+
+        return when (getUriMatcher().match(uri)){
+
+            URI_UTENTES_ESPECIFICO -> TabelaUtentes(bd).update(
+                values!!,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!)
+            )
+
+            URI_MEDICOS_ESPECIFICA -> TabelaMedicos(bd).update(
+                values!!,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!)
+            )
+
+            URI_UNIDADES_HOSPITALARES_ESPECIFICO -> TabelaUnidadeHospitalar(bd).update(
+                values!!,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!)
+            )
+
+            URI_TESTES_ESPECIFICA -> TabelaTeste(bd).update(
+                values!!,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!)
+            )
+            else -> 0
+        }
     }
 
     companion object{
