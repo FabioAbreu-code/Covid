@@ -236,7 +236,24 @@ class ContentProviderCovid : ContentProvider() {
      * @return The URI for the newly inserted item.
      */
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
-        TODO("Ainda não foi implementado")
+        val bd = bdTestesOpenHelper!!.writableDatabase
+
+        val id =  when (getUriMatcher().match(uri)){
+
+            URI_UTENTES -> TabelaUtentes(bd).insert(values!!)
+
+            URI_MEDICOS -> TabelaMedicos(bd).insert(values!!)
+
+            URI_UNIDADES_HOSPITALARES -> TabelaUnidadeHospitalar(bd).insert(values!!)
+
+            URI_TESTES -> TabelaTeste(bd).insert(values!!)
+
+            else -> -1L
+        }
+
+        if(id == -1L) return null
+
+        return Uri.withAppendedPath(uri, id.toString())
     }
 
     /**
