@@ -7,8 +7,6 @@ import java.util.*
 
 data class Utentes(
     var id: Long = -1,
-    var Data_do_Teste: String,
-    var Resultado: String,
     var Numero_de_Utente: String,
     var Nome: String,
     var Sexo: String,
@@ -16,14 +14,14 @@ data class Utentes(
     var Telemovel: String,
     var Email: String,
     var Morada: String,
-    var Id_Medico: String,
-    var Id_Unidade_Hospitalar: String
+    var Id_Medico: Long,
+    var Id_Unidade_Hospitalar: Long,
+    var Id_Teste: Long
 ) {
 
     fun toContentValues(): ContentValues {
         val valores = ContentValues().apply {
-            put(TabelaUtentes.CAMPO_DATA_TESTE, Data_do_Teste)
-            put(TabelaUtentes.CAMPO_RESULTADO, Resultado)
+
             put(TabelaUtentes.CAMPO_NUM_UTENTE, Numero_de_Utente)
             put(TabelaUtentes.CAMPO_NOME, Nome)
             put(TabelaUtentes.CAMPO_SEXO, Sexo)
@@ -33,6 +31,7 @@ data class Utentes(
             put(TabelaUtentes.CAMPO_MORADA, Morada)
             put(TabelaUtentes.CAMPO_ID_MEDICO, Id_Medico)
             put(TabelaUtentes.CAMPO_ID_UNIDADE_HOSPITALAR, Id_Unidade_Hospitalar)
+            put(TabelaUtentes.CAMPO_ID_TESTE, Id_Teste)
         }
 
         return valores
@@ -41,8 +40,6 @@ data class Utentes(
     companion object {
         fun fromCursor(cursor: Cursor): Utentes {
             val colId = cursor.getColumnIndex(BaseColumns._ID)
-            val colData_do_Teste = cursor.getColumnIndex(TabelaUtentes.CAMPO_DATA_TESTE)
-            val colResultado = cursor.getColumnIndex(TabelaUtentes.CAMPO_RESULTADO)
             val colNumero_de_Utente = cursor.getColumnIndex(TabelaUtentes.CAMPO_NUM_UTENTE)
             val colNome = cursor.getColumnIndex(TabelaUtentes.CAMPO_NOME)
             val colSexo = cursor.getColumnIndex(TabelaUtentes.CAMPO_SEXO)
@@ -52,10 +49,9 @@ data class Utentes(
             val colMorada = cursor.getColumnIndex(TabelaUtentes.CAMPO_MORADA)
             val colId_Medico = cursor.getColumnIndex(TabelaUtentes.CAMPO_ID_MEDICO)
             val colId_Unidade_Hospitalar = cursor.getColumnIndex(TabelaUtentes.CAMPO_ID_UNIDADE_HOSPITALAR)
+            val colId_Teste = cursor.getColumnIndex(TabelaUtentes.CAMPO_ID_TESTE)
 
             val id = cursor.getLong(colId)
-            val Data_do_Teste = cursor.getString(colData_do_Teste)
-            val Resultado = cursor.getString(colResultado)
             val Numero_de_Utente = cursor.getString(colNumero_de_Utente)
             val Nome = cursor.getString(colNome)
             val Sexo = cursor.getString(colSexo)
@@ -63,13 +59,12 @@ data class Utentes(
             val Telemovel = cursor.getString(colTelemovel)
             val Email = cursor.getString(colEmail)
             val Morada = cursor.getString(colMorada)
-            val Id_Medico = cursor.getString(colId_Medico)
-            val Id_Unidade_Hospitalar = cursor.getString(colId_Unidade_Hospitalar)
+            val Id_Medico = cursor.getLong(colId_Medico)
+            val Id_Unidade_Hospitalar = cursor.getLong(colId_Unidade_Hospitalar)
+            val Id_Teste = cursor.getLong(colId_Teste)
 
             return Utentes(
                 id,
-                Data_do_Teste,
-                Resultado,
                 Numero_de_Utente,
                 Nome,
                 Sexo,
@@ -78,7 +73,8 @@ data class Utentes(
                 Email,
                 Morada,
                 Id_Medico,
-                Id_Unidade_Hospitalar
+                Id_Unidade_Hospitalar,
+                Id_Teste
             )
         }
     }

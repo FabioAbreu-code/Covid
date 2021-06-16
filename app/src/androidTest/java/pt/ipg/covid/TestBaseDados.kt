@@ -23,6 +23,7 @@ import org.junit.Before
     private fun getTableUtentes(db: SQLiteDatabase) = TabelaUtentes(db)
     private fun getTabelaMedicos(db: SQLiteDatabase) = TabelaMedicos(db)
     private fun getTabelaUnidadesHospitalares(db: SQLiteDatabase) = TabelaUnidadeHospitalar(db)
+    private fun getTabelaTestes(db: SQLiteDatabase) = TabelaTeste(db)
 
     private fun insereUtente(tabela: TabelaUtentes, utentes: Utentes): Long {
         val id = tabela.insert(utentes.toContentValues())
@@ -45,9 +46,15 @@ import org.junit.Before
         return id
     }
 
+    private fun insertTest(tabela: TabelaTeste, teste: Teste): Long {
+        val id = tabela.insert(teste.toContentValues())
+        assertNotEquals(-1, id)
 
-    private fun GetUtenteBd(tabelaMedicos: TabelaUtentes, id: Long): Utentes {
-        val cursor = tabelaMedicos.query(
+        return id
+    }
+
+    private fun GetUtentesBd(tabelaUtentes: TabelaUtentes, id: Long): Utentes {
+        val cursor = tabelaUtentes.query(
             TabelaUtentes.TODOS_CAMPOS,
             "${BaseColumns._ID}=?",
             arrayOf(id.toString()),
@@ -80,6 +87,40 @@ import org.junit.Before
 
     }
 
+    private fun GetTestBd(tabelaTeste: TabelaTeste, id: Long): Teste {
+        val cursor = tabelaTeste.query(
+            TabelaTeste.TODOS_CAMPOS,
+            "${BaseColumns._ID}=?",
+            arrayOf(id.toString()),
+            null,
+            null,
+            null
+        )
+
+        assertNotNull(cursor)
+        assert(cursor!!.moveToNext())
+
+        return Teste.fromCursor(cursor)
+
+    }
+
+    private fun GetUnidadesHospitalaresBd(tabelaUnidadeHospitalar: TabelaUnidadeHospitalar, id: Long): UnidadesHospitalares {
+        val cursor = tabelaUnidadeHospitalar.query(
+            TabelaUnidadeHospitalar.TODOS_CAMPOS,
+            "${BaseColumns._ID}=?",
+            arrayOf(id.toString()),
+            null,
+            null,
+            null
+        )
+
+        assertNotNull(cursor)
+        assert(cursor!!.moveToNext())
+
+        return UnidadesHospitalares.fromCursor(cursor)
+
+    }
+
     @Before
     fun apagaBaseDados(){
         getAppContext().deleteDatabase(BdTestesOpenHelper.NOME_BASE_DADOS)
@@ -89,13 +130,24 @@ import org.junit.Before
     fun consegueLerUtentes() {
 
         val db = getBdTestesOpenHelper().writableDatabase
-        val tabelaUtentes = getTableUtentes(db)
 
-        val utentes = Utentes(Data_do_Teste = "06/06/2021", Resultado = "Negativo", Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = "3", Id_Unidade_Hospitalar = "Hospital Dr. Nélio Mendonça")
+        val tabelaMedicos = TabelaMedicos(db)
+        val medicos = Medicos(Nome = "Maria", Telemovel = "936873505", Email= "maria@gmail.com")
+        medicos.id = insereMedico(tabelaMedicos, medicos)
+
+        val tabelaUnidadeHospitalar = TabelaUnidadeHospitalar(db)
+        val unidadesHospitalares = UnidadesHospitalares(Nome = "Hospital Dr. Nélio Mendonça", Morada = "Av. Luís de Camões 6180")
+        unidadesHospitalares.id = insertUnidadesHospitalares(tabelaUnidadeHospitalar, unidadesHospitalares)
+
+        val tabelaTeste = TabelaTeste(db)
+        val testes = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        testes.id = insertTest(tabelaTeste, testes)
+
+        val tabelaUtentes = TabelaUtentes(db)
+        val utentes = Utentes(Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id)
         utentes.id = insereUtente(tabelaUtentes, utentes)
 
-        val utenteBd = GetUtenteBd(tabelaUtentes, utentes.id)
-        assertEquals(utentes, utenteBd)
+        assertEquals(utentes, GetUtentesBd(tabelaUtentes, utentes.id))
 
         db.close()
     }
@@ -115,6 +167,41 @@ import org.junit.Before
         db.close()
     }
 
+/*
+    @Test
+    fun consegueLerUnidadesHospitalares() {
+
+        val db = getBdTestesOpenHelper().writableDatabase
+        val tabelaUnidadeHospitalar = getTabelaUnidadesHospitalares(db)
+
+        val unidadeHospitalar = UnidadesHospitalares(Nome = "Hospital Dr. Nélio Mendonça", Morada = "Av. Luís de Camões 6180")
+        unidadeHospitalar.id = insertUnidadesHospitalares(tabelaUnidadeHospitalar, unidadeHospitalar)
+
+        val unidadeHospitalarBd = GetUnidadesHospitalaresBd(tabelaUnidadeHospitalar, unidadeHospitalar.id)
+        assertEquals(unidadeHospitalar, unidadeHospitalarBd)
+
+        db.close()
+    }
+
+ */
+
+    @Test
+    fun consegueLerTestes() {
+
+        val db = getBdTestesOpenHelper().writableDatabase
+        val tabelaTeste = getTabelaTestes(db)
+
+        val teste = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        teste.id = insertTest(tabelaTeste, teste)
+
+        val testeBd = GetTestBd(tabelaTeste, teste.id)
+        assertEquals(teste, testeBd)
+
+        db.close()
+    }
+
+
+
     @Test
     fun consegueAbrirBaseDados(){
         val db = getBdTestesOpenHelper().readableDatabase
@@ -126,7 +213,19 @@ import org.junit.Before
     fun consegueInserirUtentes() {
         val db = getBdTestesOpenHelper().writableDatabase
 
-        insereUtente(getTableUtentes(db), Utentes(Data_do_Teste = "06/06/2021", Resultado = "Negativo", Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = "3", Id_Unidade_Hospitalar = "Hospital Dr. Nélio Mendonça"))
+        val tabelaMedicos = TabelaMedicos(db)
+        val medicos = Medicos(Nome = "Maria", Telemovel = "936873505", Email= "maria@gmail.com")
+        medicos.id = insereMedico(tabelaMedicos, medicos)
+
+        val tabelaUnidadeHospitalar = TabelaUnidadeHospitalar(db)
+        val unidadesHospitalares = UnidadesHospitalares(Nome = "Hospital Dr. Nélio Mendonça", Morada = "Av. Luís de Camões 6180")
+        unidadesHospitalares.id = insertUnidadesHospitalares(tabelaUnidadeHospitalar, unidadesHospitalares)
+
+        val tabelaTeste = TabelaTeste(db)
+        val testes = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        testes.id = insertTest(tabelaTeste, testes)
+
+        insereUtente(getTableUtentes(db), Utentes( Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id))
 
         db.close()
     }
@@ -152,12 +251,38 @@ import org.junit.Before
     }
 
     @Test
+    fun consegueInserirTeste(){
+        val db = getBdTestesOpenHelper().writableDatabase
+        val tabelaTeste = TabelaTeste(db)
+
+        val teste = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        teste.id = insertTest(tabelaTeste, teste)
+
+        assertEquals(teste, GetTestBd(tabelaTeste, teste.id))
+
+        db.close()
+    }
+
+    @Test
     fun consegueAlterarVacinas(){
 
         val db = getBdTestesOpenHelper().writableDatabase
 
         val tabelaUtentes = getTableUtentes(db)
-        val utentes = Utentes(Data_do_Teste = "06/06/2021", Resultado = "Negativo", Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = "3", Id_Unidade_Hospitalar = "Hospital Dr. Nélio Mendonça")
+
+        val tabelaMedicos = TabelaMedicos(db)
+        val medicos = Medicos(Nome = "Maria", Telemovel = "936873505", Email= "maria@gmail.com")
+        medicos.id = insereMedico(tabelaMedicos, medicos)
+
+        val tabelaUnidadeHospitalar = TabelaUnidadeHospitalar(db)
+        val unidadesHospitalares = UnidadesHospitalares(Nome = "Hospital Dr. Nélio Mendonça", Morada = "Av. Luís de Camões 6180")
+        unidadesHospitalares.id = insertUnidadesHospitalares(tabelaUnidadeHospitalar, unidadesHospitalares)
+
+        val tabelaTeste = TabelaTeste(db)
+        val testes = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        testes.id = insertTest(tabelaTeste, testes)
+
+        val utentes = Utentes(Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id)
         utentes.id = insereUtente(tabelaUtentes, utentes)
 
         val registosAlterados = tabelaUtentes.update(
@@ -214,13 +339,44 @@ import org.junit.Before
         db.close()
     }
 
+    fun consegueAlterarTeste() {
+
+        val db = getBdTestesOpenHelper().writableDatabase
+
+        val tabelaTeste = getTabelaTestes(db)
+        val teste = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        teste.id = insertTest(tabelaTeste, teste)
+
+
+        val registosAlterados = tabelaTeste.update(
+            teste.toContentValues(),
+            "${BaseColumns._ID}=?",
+            arrayOf(teste.id.toString())
+        )
+
+        assertEquals(1, registosAlterados)
+
+        db.close()
+    }
 
     @Test
     fun consegueApagarUtentes() {
 
         val db = getBdTestesOpenHelper().writableDatabase
         val tabelaUtentes = getTableUtentes(db)
-        val utentes = Utentes(Data_do_Teste = "06/06/2021", Resultado = "Negativo", Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = "3", Id_Unidade_Hospitalar = "Hospital Dr. Nélio Mendonça")
+        val tabelaMedicos = TabelaMedicos(db)
+        val medicos = Medicos(Nome = "Maria", Telemovel = "936873505", Email= "maria@gmail.com")
+        medicos.id = insereMedico(tabelaMedicos, medicos)
+
+        val tabelaUnidadeHospitalar = TabelaUnidadeHospitalar(db)
+        val unidadesHospitalares = UnidadesHospitalares(Nome = "Hospital Dr. Nélio Mendonça", Morada = "Av. Luís de Camões 6180")
+        unidadesHospitalares.id = insertUnidadesHospitalares(tabelaUnidadeHospitalar, unidadesHospitalares)
+
+        val tabelaTeste = TabelaTeste(db)
+        val testes = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        testes.id = insertTest(tabelaTeste, testes)
+
+        val utentes = Utentes(Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id)
         utentes.id = insereUtente(tabelaUtentes, utentes)
 
         val registosApagados = tabelaUtentes.delete("${BaseColumns._ID}=?",arrayOf(utentes.id.toString()))
@@ -254,6 +410,20 @@ import org.junit.Before
         unidadeHospitalar.id = insertUnidadesHospitalares(tabelaUnidadeHospitalar, unidadeHospitalar)
 
         val registosApagados = tabelaUnidadeHospitalar.delete("${BaseColumns._ID}=?",arrayOf(unidadeHospitalar.id.toString()))
+        assertEquals(1, registosApagados)
+
+        db.close()
+    }
+
+    @Test
+    fun consegueApagarTestes() {
+
+        val db = getBdTestesOpenHelper().writableDatabase
+        val tabelaTeste = getTabelaTestes(db)
+        val teste = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        teste.id = insertTest(tabelaTeste, teste)
+
+        val registosApagados = tabelaTeste.delete("${BaseColumns._ID}=?",arrayOf(teste.id.toString()))
         assertEquals(1, registosApagados)
 
         db.close()

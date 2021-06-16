@@ -11,6 +11,7 @@ class BdTestesOpenHelper(context: Context?): SQLiteOpenHelper(context, NOME_BASE
             TabelaUtentes(db).cria()
             TabelaMedicos(db).cria()
             TabelaUnidadeHospitalar(db).cria()
+            TabelaTeste(db).cria()
         }
     }
 

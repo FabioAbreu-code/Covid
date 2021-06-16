@@ -7,7 +7,8 @@ import android.provider.BaseColumns
 class UnidadesHospitalares (
     var id: Long = -1,
     var Nome: String,
-    var Morada: String) {
+    var Morada: String
+    ) {
 
         fun toContentValues(): ContentValues {
             val valores = ContentValues().apply {
