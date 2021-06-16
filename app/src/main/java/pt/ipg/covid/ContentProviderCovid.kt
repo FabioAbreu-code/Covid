@@ -117,7 +117,76 @@ class ContentProviderCovid : ContentProvider() {
         selectionArgs: Array<out String>?,
         sortOrder: String?
     ): Cursor? {
-        TODO("Ainda não foi implementado")
+        val bd = bdTestesOpenHelper!!.readableDatabase
+
+        return when (getUriMatcher().match(uri)){
+
+            URI_UTENTES -> TabelaUtentes(bd).query(
+                projection as Array<String>,
+                selection,
+                selectionArgs as Array<String>?,
+                null,
+                null,
+                sortOrder
+            )
+            URI_UTENTES_ESPECIFICO -> TabelaUtentes(bd).query(
+                projection as Array<String>,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!),
+                null,
+                null,
+                null
+            )
+            URI_MEDICOS -> TabelaMedicos(bd).query(
+                projection as Array<String>,
+                selection,
+                selectionArgs as Array<String>?,
+                null,
+                null,
+                sortOrder
+            )
+            URI_MEDICOS_ESPECIFICA -> TabelaMedicos(bd).query(
+                projection as Array<String>,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!),
+                null,
+                null,
+                null
+            )
+            URI_UNIDADES_HOSPITALARES -> TabelaUnidadeHospitalar(bd).query(
+                projection as Array<String>,
+                selection,
+                selectionArgs as Array<String>?,
+                null,
+                null,
+                sortOrder
+            )
+            URI_UNIDADES_HOSPITALARES_ESPECIFICO -> TabelaUnidadeHospitalar(bd).query(
+                projection as Array<String>,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!),
+                null,
+                null,
+                null
+            )
+            URI_TESTES -> TabelaTeste(bd).query(
+                projection as Array<String>,
+                selection,
+                selectionArgs as Array<String>?,
+                null,
+                null,
+                sortOrder
+            )
+            URI_TESTES_ESPECIFICA -> TabelaTeste(bd).query(
+                projection as Array<String>,
+                "${BaseColumns._ID}=?",
+                arrayOf(uri.lastPathSegment!!),
+                null,
+                null,
+                null
+            )
+            else -> null
+        }
     }
 
     /**
