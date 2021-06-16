@@ -140,7 +140,17 @@ class ContentProviderCovid : ContentProvider() {
      * @return a MIME type string, or `null` if there is no type.
      */
     override fun getType(uri: Uri): String? {
-        TODO("Ainda não foi implementado")
+        return when (getUriMatcher().match(uri)){
+            URI_UTENTES -> "$MULTIPLOS_ITEMS/$UTENTES"
+            URI_UTENTES_ESPECIFICO -> "$UNICO_ITEM/$UTENTES"
+            URI_MEDICOS -> "$MULTIPLOS_ITEMS/$MEDICOS"
+            URI_MEDICOS_ESPECIFICA -> "$UNICO_ITEM/$MEDICOS"
+            URI_UNIDADES_HOSPITALARES -> "$MULTIPLOS_ITEMS/$UNIDADES_HOSPITALARES"
+            URI_UNIDADES_HOSPITALARES_ESPECIFICO -> "$UNICO_ITEM/$UNIDADES_HOSPITALARES"
+            URI_TESTES -> "$MULTIPLOS_ITEMS/$TESTES"
+            URI_TESTES_ESPECIFICA -> "$UNICO_ITEM/$TESTES"
+            else -> null
+        }
     }
 
 
@@ -228,6 +238,8 @@ class ContentProviderCovid : ContentProvider() {
         private const val URI_TESTES = 400
         private const val URI_TESTES_ESPECIFICA = 401
 
+        private const val MULTIPLOS_ITEMS = "vnd.adroid.cursor.dir"
+        private const val UNICO_ITEM = "vnd.android.cursor.item"
 
         private fun getUriMatcher() : UriMatcher {
             val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
