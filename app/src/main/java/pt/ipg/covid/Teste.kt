@@ -7,7 +7,7 @@ import java.util.*
 
 data class Teste(
     var id: Long = -1,
-    var Data_do_Teste: String,
+    var Data_do_Teste: Int,
     var Resultado: String,
 
 ) {
@@ -30,7 +30,7 @@ data class Teste(
 
 
             val id = cursor.getLong(colId)
-            val Data_do_Teste = cursor.getString(colData_do_Teste)
+            val Data_do_Teste = cursor.getInt(colData_do_Teste)
             val Resultado = cursor.getString(colResultado)
 
 

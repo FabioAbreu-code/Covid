@@ -10,7 +10,7 @@ data class Utentes(
     var Numero_de_Utente: String,
     var Nome: String,
     var Sexo: String,
-    var Data_de_Nascimento: String,
+    var Data_de_Nascimento: Int,
     var Telemovel: String,
     var Email: String,
     var Morada: String,
@@ -55,7 +55,7 @@ data class Utentes(
             val Numero_de_Utente = cursor.getString(colNumero_de_Utente)
             val Nome = cursor.getString(colNome)
             val Sexo = cursor.getString(colSexo)
-            val Data_de_Nascimento = cursor.getString(colData_de_Nascimento)
+            val Data_de_Nascimento = cursor.getInt(colData_de_Nascimento)
             val Telemovel = cursor.getString(colTelemovel)
             val Email = cursor.getString(colEmail)
             val Morada = cursor.getString(colMorada)
