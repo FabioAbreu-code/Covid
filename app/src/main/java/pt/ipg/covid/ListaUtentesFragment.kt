@@ -10,8 +10,9 @@ import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import pt.ipg.utentes.databinding.FragmentListaUtentesBinding
+import pt.ipg.covid.databinding.FragmentListaUtentesBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -19,7 +20,7 @@ import pt.ipg.utentes.databinding.FragmentListaUtentesBinding
 class ListaUtentesFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>  {
 
     private var _binding: FragmentListaUtentesBinding? = null
-
+    private var adapterUtentes : AdapterUtentes? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -34,7 +35,9 @@ class ListaUtentesFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>  
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerViewUtentes = view.findViewById<RecyclerView>(R.id.recyclerViewUtentes)
-        //recyclerViewUtentes.adapter
+        adapterUtentes = AdapterUtentes()
+        recyclerViewUtentes.adapter = adapterUtentes
+        recyclerViewUtentes.layoutManager = LinearLayoutManager(requireContext())
 
         LoaderManager.getInstance(this)
             .initLoader(ID_LOADER_MANAGER_UTENTES, null, this)
