@@ -1,10 +1,11 @@
 package pt.ipg.covid
 
+import android.database.Cursor
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class AdapterUtentes : RecyclerView.Adapter<AdapterUtentes.ViewHolderUtente>() {
+class AdapterUtentes(var cursor: Cursor? = null) : RecyclerView.Adapter<AdapterUtentes.ViewHolderUtente>() {
     class ViewHolderUtente(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
