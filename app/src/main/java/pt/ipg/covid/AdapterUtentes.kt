@@ -3,11 +3,29 @@ package pt.ipg.covid
 import android.database.Cursor
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class AdapterUtentes(var cursor: Cursor? = null) : RecyclerView.Adapter<AdapterUtentes.ViewHolderUtente>() {
+class AdapterUtentes(val fragment: ListaUtentesFragment, var cursor: Cursor? = null) : RecyclerView.Adapter<AdapterUtentes.ViewHolderUtente>() {
     class ViewHolderUtente(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val textViewNome = itemView.findViewById<TextView>(R.id.textViewNome)
+        private val textViewNumero_de_Utente = itemView.findViewById<TextView>(R.id.textViewNumero_de_Utente)
+        private val textViewSexo = itemView.findViewById<TextView>(R.id.textViewSexo)
+        private val textViewData_Nascimento = itemView.findViewById<TextView>(R.id.textViewData_Nascimento)
+        private val textViewTelemovel = itemView.findViewById<TextView>(R.id.textViewTelemovel)
+        private val textViewEmail = itemView.findViewById<TextView>(R.id.textViewEmail)
+        private val textViewMorada = itemView.findViewById<TextView>(R.id.textViewMorada)
 
+
+        fun atualizaUtente(utente: Utentes) {
+            textViewNome.text = utente.Nome
+            textViewNumero_de_Utente.text = utente.Numero_de_Utente
+            textViewSexo.text = utente.Sexo
+
+            textViewTelemovel.text = utente.Telemovel
+            textViewEmail.text = utente.Email
+            textViewMorada.text = utente.Morada
+        }
     }
 
     /**
@@ -34,7 +52,9 @@ class AdapterUtentes(var cursor: Cursor? = null) : RecyclerView.Adapter<AdapterU
      * @see .onBindViewHolder
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderUtente {
-        TODO("Not yet implemented")
+        val itemUtente = fragment.layoutInflater.inflate(R.layout.item_utentes, parent, false)
+
+        return ViewHolderUtente(itemUtente)
     }
 
     /**
@@ -59,7 +79,8 @@ class AdapterUtentes(var cursor: Cursor? = null) : RecyclerView.Adapter<AdapterU
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: ViewHolderUtente, position: Int) {
-        TODO("Not yet implemented")
+        cursor!!.moveToPosition(position)
+        holder.atualizaUtente(Utentes.fromCursor(cursor!!))
     }
 
     /**

@@ -35,7 +35,7 @@ class ListaUtentesFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor>  
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerViewUtentes = view.findViewById<RecyclerView>(R.id.recyclerViewUtentes)
-        adapterUtentes = AdapterUtentes()
+        adapterUtentes = AdapterUtentes(this)
         recyclerViewUtentes.adapter = adapterUtentes
         recyclerViewUtentes.layoutManager = LinearLayoutManager(requireContext())
 
