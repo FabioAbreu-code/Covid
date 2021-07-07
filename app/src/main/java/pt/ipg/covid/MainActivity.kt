@@ -6,8 +6,12 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.navigation.ui.AppBarConfiguration
 
 class MainActivity : AppCompatActivity() {
+
+
+    private lateinit var menu: Menu
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,11 +22,14 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+        DadosApp.activity = this
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_lista_utentes, menu)
+        this.menu = menu
+        atualizaMenuListaUtentes(false)
         return true
     }
 
@@ -34,5 +41,10 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun atualizaMenuListaUtentes(mostraBotoesAlterarEliminar : Boolean) {
+        menu.findItem(R.id.action_alterar_utente).setVisible(mostraBotoesAlterarEliminar)
+        menu.findItem(R.id.action_eliminar_utente).setVisible(mostraBotoesAlterarEliminar)
     }
 }
