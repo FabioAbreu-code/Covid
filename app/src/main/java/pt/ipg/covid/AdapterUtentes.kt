@@ -14,7 +14,7 @@ class AdapterUtentes(val fragment: ListaUtentesFragment) : RecyclerView.Adapter<
             notifyDataSetChanged()
         }
 
-    class ViewHolderUtente(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolderUtente(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener  {
         private val textViewNome = itemView.findViewById<TextView>(R.id.textViewNome)
         private val textViewNumero_de_Utente = itemView.findViewById<TextView>(R.id.textViewNumero_de_Utente)
         private val textViewSexo = itemView.findViewById<TextView>(R.id.textViewSexo)
@@ -24,6 +24,9 @@ class AdapterUtentes(val fragment: ListaUtentesFragment) : RecyclerView.Adapter<
         private val textViewMorada = itemView.findViewById<TextView>(R.id.textViewMorada)
         private val textViewMedicos = itemView.findViewById<TextView>(R.id.textViewMedico)
 
+        init {
+            itemView.setOnClickListener(this)
+        }
 
         fun atualizaUtente(utente: Utentes) {
             textViewNome.text = utente.Nome
@@ -36,6 +39,32 @@ class AdapterUtentes(val fragment: ListaUtentesFragment) : RecyclerView.Adapter<
             textViewMedicos.text = utente.nomeMedicos
 
         }
+
+
+        /**
+         * Called when a view has been clicked.
+         *
+         * @param v The view that was clicked.
+         */
+        override fun onClick(v: View?) {
+            selecionado?.desSeleciona()
+            seleciona()
+        }
+
+        private fun seleciona() {
+            selecionado = this
+            itemView.setBackgroundResource(R.color.cor_selecao)
+        }
+
+        private fun desSeleciona() {
+            selecionado = null
+            itemView.setBackgroundResource(android.R.color.white)
+        }
+
+        companion object {
+            var selecionado : ViewHolderUtente? = null
+        }
+
     }
 
     /**
