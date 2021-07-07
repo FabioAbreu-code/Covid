@@ -24,11 +24,14 @@ class AdapterUtentes(val fragment: ListaUtentesFragment) : RecyclerView.Adapter<
         private val textViewMorada = itemView.findViewById<TextView>(R.id.textViewMorada)
         private val textViewMedicos = itemView.findViewById<TextView>(R.id.textViewMedico)
 
+        private lateinit var utente: Utentes
+
         init {
             itemView.setOnClickListener(this)
         }
 
         fun atualizaUtente(utente: Utentes) {
+            this.utente = utente
             textViewNome.text = utente.Nome
             textViewNumero_de_Utente.text = utente.Numero_de_Utente
             textViewSexo.text = utente.Sexo
@@ -54,6 +57,7 @@ class AdapterUtentes(val fragment: ListaUtentesFragment) : RecyclerView.Adapter<
         private fun seleciona() {
             selecionado = this
             itemView.setBackgroundResource(R.color.cor_selecao)
+            DadosApp.utenteSelecionado = utente
         }
 
         private fun desSeleciona() {
