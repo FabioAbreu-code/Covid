@@ -56,7 +56,7 @@ import org.junit.Before
     private fun GetUtentesBd(tabelaUtentes: TabelaUtentes, id: Long): Utentes {
         val cursor = tabelaUtentes.query(
             TabelaUtentes.TODOS_CAMPOS,
-            "${BaseColumns._ID}=?",
+            "${TabelaUtentes.NOME_TABELA}.${BaseColumns._ID}=?",
             arrayOf(id.toString()),
             null,
             null,
@@ -73,7 +73,7 @@ import org.junit.Before
     private fun GetMedicosBd(tabelaMedicos: TabelaMedicos, id: Long): Medicos {
         val cursor = tabelaMedicos.query(
             TabelaMedicos.TODOS_CAMPOS,
-            "${BaseColumns._ID}=?",
+            "${TabelaMedicos.NOME_TABELA}.${BaseColumns._ID}=?",
             arrayOf(id.toString()),
             null,
             null,
@@ -90,7 +90,7 @@ import org.junit.Before
     private fun GetTestBd(tabelaTeste: TabelaTeste, id: Long): Teste {
         val cursor = tabelaTeste.query(
             TabelaTeste.TODOS_CAMPOS,
-            "${BaseColumns._ID}=?",
+            "${TabelaTeste.NOME_TABELA}.${BaseColumns._ID}=?",
             arrayOf(id.toString()),
             null,
             null,
@@ -107,7 +107,7 @@ import org.junit.Before
     private fun GetUnidadesHospitalaresBd(tabelaUnidadeHospitalar: TabelaUnidadeHospitalar, id: Long): UnidadesHospitalares {
         val cursor = tabelaUnidadeHospitalar.query(
             TabelaUnidadeHospitalar.TODOS_CAMPOS,
-            "${BaseColumns._ID}=?",
+            "${TabelaUnidadeHospitalar.NOME_TABELA}.${BaseColumns._ID}=?",
             arrayOf(id.toString()),
             null,
             null,
@@ -140,11 +140,11 @@ import org.junit.Before
         unidadesHospitalares.id = insertUnidadesHospitalares(tabelaUnidadeHospitalar, unidadesHospitalares)
 
         val tabelaTeste = TabelaTeste(db)
-        val testes = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        val testes = Teste(Data_do_Teste = 15062021, Resultado = "Negativo")
         testes.id = insertTest(tabelaTeste, testes)
 
         val tabelaUtentes = TabelaUtentes(db)
-        val utentes = Utentes(Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id)
+        val utentes = Utentes(Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = 21071999, Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id)
         utentes.id = insereUtente(tabelaUtentes, utentes)
 
         assertEquals(utentes, GetUtentesBd(tabelaUtentes, utentes.id))
@@ -191,7 +191,7 @@ import org.junit.Before
         val db = getBdTestesOpenHelper().writableDatabase
         val tabelaTeste = getTabelaTestes(db)
 
-        val teste = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        val teste = Teste(Data_do_Teste = 15062021, Resultado = "Negativo")
         teste.id = insertTest(tabelaTeste, teste)
 
         val testeBd = GetTestBd(tabelaTeste, teste.id)
@@ -222,10 +222,10 @@ import org.junit.Before
         unidadesHospitalares.id = insertUnidadesHospitalares(tabelaUnidadeHospitalar, unidadesHospitalares)
 
         val tabelaTeste = TabelaTeste(db)
-        val testes = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        val testes = Teste(Data_do_Teste = 15062021, Resultado = "Negativo")
         testes.id = insertTest(tabelaTeste, testes)
 
-        insereUtente(getTableUtentes(db), Utentes( Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id))
+        insereUtente(getTableUtentes(db), Utentes( Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = 21071999, Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id))
 
         db.close()
     }
@@ -255,7 +255,7 @@ import org.junit.Before
         val db = getBdTestesOpenHelper().writableDatabase
         val tabelaTeste = TabelaTeste(db)
 
-        val teste = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        val teste = Teste(Data_do_Teste = 15062021, Resultado = "Negativo")
         teste.id = insertTest(tabelaTeste, teste)
 
         assertEquals(teste, GetTestBd(tabelaTeste, teste.id))
@@ -279,10 +279,10 @@ import org.junit.Before
         unidadesHospitalares.id = insertUnidadesHospitalares(tabelaUnidadeHospitalar, unidadesHospitalares)
 
         val tabelaTeste = TabelaTeste(db)
-        val testes = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        val testes = Teste(Data_do_Teste = 15062021, Resultado = "Negativo")
         testes.id = insertTest(tabelaTeste, testes)
 
-        val utentes = Utentes(Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id)
+        val utentes = Utentes(Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = 21071999, Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id)
         utentes.id = insereUtente(tabelaUtentes, utentes)
 
         val registosAlterados = tabelaUtentes.update(
@@ -344,7 +344,7 @@ import org.junit.Before
         val db = getBdTestesOpenHelper().writableDatabase
 
         val tabelaTeste = getTabelaTestes(db)
-        val teste = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        val teste = Teste(Data_do_Teste = 15062021, Resultado = "Negativo")
         teste.id = insertTest(tabelaTeste, teste)
 
 
@@ -373,10 +373,10 @@ import org.junit.Before
         unidadesHospitalares.id = insertUnidadesHospitalares(tabelaUnidadeHospitalar, unidadesHospitalares)
 
         val tabelaTeste = TabelaTeste(db)
-        val testes = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        val testes = Teste(Data_do_Teste = 15062021, Resultado = "Negativo")
         testes.id = insertTest(tabelaTeste, testes)
 
-        val utentes = Utentes(Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = "21/07/1999", Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id)
+        val utentes = Utentes(Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = 21071999, Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id)
         utentes.id = insereUtente(tabelaUtentes, utentes)
 
         val registosApagados = tabelaUtentes.delete("${BaseColumns._ID}=?",arrayOf(utentes.id.toString()))
@@ -420,7 +420,7 @@ import org.junit.Before
 
         val db = getBdTestesOpenHelper().writableDatabase
         val tabelaTeste = getTabelaTestes(db)
-        val teste = Teste(Data_do_Teste = "15/06/2021", Resultado = "Negativo")
+        val teste = Teste(Data_do_Teste = 15062021, Resultado = "Negativo")
         teste.id = insertTest(tabelaTeste, teste)
 
         val registosApagados = tabelaTeste.delete("${BaseColumns._ID}=?",arrayOf(teste.id.toString()))
