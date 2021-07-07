@@ -16,7 +16,8 @@ data class Utentes(
     var Morada: String,
     var Id_Medico: Long,
     var Id_Unidade_Hospitalar: Long,
-    var Id_Teste: Long
+    var Id_Teste: Long,
+    var nomeMedicos: String?
 ) {
 
     fun toContentValues(): ContentValues {
@@ -50,6 +51,8 @@ data class Utentes(
             val colId_Medico = cursor.getColumnIndex(TabelaUtentes.CAMPO_ID_MEDICO)
             val colId_Unidade_Hospitalar = cursor.getColumnIndex(TabelaUtentes.CAMPO_ID_UNIDADE_HOSPITALAR)
             val colId_Teste = cursor.getColumnIndex(TabelaUtentes.CAMPO_ID_TESTE)
+            val colNomeMedic = cursor.getColumnIndex(TabelaUtentes.CAMPO_EXTERNO_NOME_MEDICOS)
+
 
             val id = cursor.getLong(colId)
             val Numero_de_Utente = cursor.getString(colNumero_de_Utente)
@@ -62,6 +65,8 @@ data class Utentes(
             val Id_Medico = cursor.getLong(colId_Medico)
             val Id_Unidade_Hospitalar = cursor.getLong(colId_Unidade_Hospitalar)
             val Id_Teste = cursor.getLong(colId_Teste)
+            val nomeMedicos = if (colNomeMedic != -1) cursor.getString(colNomeMedic) else null
+
 
             return Utentes(
                 id,
@@ -74,7 +79,8 @@ data class Utentes(
                 Morada,
                 Id_Medico,
                 Id_Unidade_Hospitalar,
-                Id_Teste
+                Id_Teste,
+                    nomeMedicos
             )
         }
     }

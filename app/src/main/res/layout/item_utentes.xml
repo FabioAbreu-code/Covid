@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/textViewNome"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margem_campos"
         android:layout_marginLeft="@dimen/margem_campos"
@@ -15,6 +15,9 @@
         android:layout_marginEnd="@dimen/margem_campos"
         android:layout_marginRight="@dimen/margem_campos"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toStartOf="@+id/textViewTitulo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Fábio Emanuel Fiqueli Abreu" />
 
     <TextView
@@ -23,6 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margem_campos"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintStart_toStartOf="@+id/textViewTitulo"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitulo"
         tools:text="763975519" />
 
     <TextView
@@ -31,6 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margem_campos"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintStart_toStartOf="@+id/textViewTitulo"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitulo"
         tools:text="Masculino" />
 
     <TextView
@@ -39,6 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margem_campos"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintStart_toStartOf="@+id/textViewTitulo"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitulo"
         tools:text="21-07-1999" />
 
     <TextView
@@ -47,6 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margem_campos"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintStart_toStartOf="@+id/textViewTitulo"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitulo"
         tools:text="931770700" />
 
     <TextView
@@ -55,6 +66,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margem_campos"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        app:layout_constraintStart_toStartOf="@+id/textViewTitulo"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitulo"
         tools:text="fabiofiqueli@hotmail.com" />
 
     <TextView
@@ -63,5 +76,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margem_campos"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        tools:text="Estrada Regional 104, Ribeira Brava, nº11" />
-</LinearLayout>
+        app:layout_constraintStart_toStartOf="@+id/textViewTitulo"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitulo"
+        tools:text="Estrada Regional 104, Ribeira Brava, nº11"
+        tools:ignore="UnknownId" />
+</androidx.constraintlayout.widget.ConstraintLayout>
