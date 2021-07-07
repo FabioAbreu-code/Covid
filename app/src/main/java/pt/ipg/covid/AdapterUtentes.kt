@@ -22,6 +22,7 @@ class AdapterUtentes(val fragment: ListaUtentesFragment) : RecyclerView.Adapter<
         private val textViewTelemovel = itemView.findViewById<TextView>(R.id.textViewTelemovel)
         private val textViewEmail = itemView.findViewById<TextView>(R.id.textViewEmail)
         private val textViewMorada = itemView.findViewById<TextView>(R.id.textViewMorada)
+        private val textViewMedicos = itemView.findViewById<TextView>(R.id.textViewMedico)
 
 
         fun atualizaUtente(utente: Utentes) {
@@ -32,6 +33,8 @@ class AdapterUtentes(val fragment: ListaUtentesFragment) : RecyclerView.Adapter<
             textViewTelemovel.text = utente.Telemovel
             textViewEmail.text = utente.Email
             textViewMorada.text = utente.Morada
+            textViewMedicos.text = utente.nomeMedicos
+
         }
     }
 

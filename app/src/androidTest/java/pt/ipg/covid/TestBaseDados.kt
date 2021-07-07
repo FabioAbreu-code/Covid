@@ -144,7 +144,19 @@ import org.junit.Before
         testes.id = insertTest(tabelaTeste, testes)
 
         val tabelaUtentes = TabelaUtentes(db)
-        val utentes = Utentes(Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = 21071999, Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id)
+        val utentes = Utentes(
+                Numero_de_Utente = "797941504",
+                Nome = "Fábio Emanuel Fiqueli Abreu",
+                Sexo = "Masculino",
+                Data_de_Nascimento = 21071999,
+                Telemovel = "936873504",
+                Email = "fabiofiqueli@hotmail.com",
+                Morada = "Madeira, Ribeira Brava Nº11",
+                Id_Medico = medicos.id,
+                Id_Unidade_Hospitalar = unidadesHospitalares.id,
+                Id_Teste = testes.id,
+                nomeMedicos = medicos.nome // necessário apenas nos testes
+        )
         utentes.id = insereUtente(tabelaUtentes, utentes)
 
         assertEquals(utentes, GetUtentesBd(tabelaUtentes, utentes.id))
@@ -225,6 +237,20 @@ import org.junit.Before
         val testes = Teste(Data_do_Teste = 15062021, Resultado = "Negativo")
         testes.id = insertTest(tabelaTeste, testes)
 
+        val utentes = Utentes(
+                Numero_de_Utente = "797941504",
+                Nome = "Fábio Emanuel Fiqueli Abreu",
+                Sexo = "Masculino",
+                Data_de_Nascimento = 21071999,
+                Telemovel = "936873504",
+                Email = "fabiofiqueli@hotmail.com",
+                Morada = "Madeira, Ribeira Brava Nº11",
+                Id_Medico = medicos.id,
+                Id_Unidade_Hospitalar = unidadesHospitalares.id,
+                Id_Teste = testes.id,
+                nomeMedicos = medicos.nome // necessário apenas nos testes
+        )
+
         insereUtente(getTableUtentes(db), Utentes( Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = 21071999, Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id))
 
         db.close()
@@ -282,7 +308,20 @@ import org.junit.Before
         val testes = Teste(Data_do_Teste = 15062021, Resultado = "Negativo")
         testes.id = insertTest(tabelaTeste, testes)
 
-        val utentes = Utentes(Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = 21071999, Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id)
+        val utentes = Utentes(
+                Numero_de_Utente = "797941504",
+                Nome = "Fábio Emanuel Fiqueli Abreu",
+                Sexo = "Masculino",
+                Data_de_Nascimento = 21071999,
+                Telemovel = "936873504",
+                Email = "fabiofiqueli@hotmail.com",
+                Morada = "Madeira, Ribeira Brava Nº11",
+                Id_Medico = medicos.id,
+                Id_Unidade_Hospitalar = unidadesHospitalares.id,
+                Id_Teste = testes.id,
+                nomeMedicos = medicos.nome // necessário apenas nos testes
+        )
+
         utentes.id = insereUtente(tabelaUtentes, utentes)
 
         val registosAlterados = tabelaUtentes.update(
@@ -376,7 +415,19 @@ import org.junit.Before
         val testes = Teste(Data_do_Teste = 15062021, Resultado = "Negativo")
         testes.id = insertTest(tabelaTeste, testes)
 
-        val utentes = Utentes(Numero_de_Utente = "797941504", Nome = "Fábio Emanuel Fiqueli Abreu", Sexo = "Masculino", Data_de_Nascimento = 21071999, Telemovel = "936873504", Email = "fabiofiqueli@hotmail.com", Morada = "Madeira, Ribeira Brava Nº11", Id_Medico = medicos.id, Id_Unidade_Hospitalar = unidadesHospitalares.id, Id_Teste = testes.id)
+        val utentes = Utentes(
+                Numero_de_Utente = "797941504",
+                Nome = "Fábio Emanuel Fiqueli Abreu",
+                Sexo = "Masculino",
+                Data_de_Nascimento = 21071999,
+                Telemovel = "936873504",
+                Email = "fabiofiqueli@hotmail.com",
+                Morada = "Madeira, Ribeira Brava Nº11",
+                Id_Medico = medicos.id,
+                Id_Unidade_Hospitalar = unidadesHospitalares.id,
+                Id_Teste = testes.id,
+                nomeMedicos = medicos.nome // necessário apenas nos testes
+        )
         utentes.id = insereUtente(tabelaUtentes, utentes)
 
         val registosApagados = tabelaUtentes.delete("${BaseColumns._ID}=?",arrayOf(utentes.id.toString()))

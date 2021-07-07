@@ -17,7 +17,7 @@ data class Utentes(
     var Id_Medico: Long,
     var Id_Unidade_Hospitalar: Long,
     var Id_Teste: Long,
-    var nomeMedicos: String?
+    var nomeMedicos: String? = null
 ) {
 
     fun toContentValues(): ContentValues {
